@@ -1,70 +1,67 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Contact Manager
 
-## Available Scripts
+This is a simple **React Contact Manager** application. The app allows users to:
 
-In the project directory, you can run:
+- **Add** new contacts
+- **Edit** existing contacts
+- **Delete** contacts
+- **Search** contacts by name, email, or phone
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Add a Contact**: Fill in the name, email, and phone to add a new contact.
+- **Edit a Contact**: Edit any existing contact's details.
+- **Delete a Contact**: Remove a contact from the list.
+- **Search**: Filter contacts in real-time by name, email, or phone.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- **React.js** for building the user interface.
+- **Tailwind CSS** for styling the app.
+- **localStorage** to persist contacts.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Instructions
 
-### `npm run build`
+### 1. Clone the Repository
+```bash
+git clone https://github.com/SamuJCosta/ReactChallenge
+cd react-contact-manager
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. Run the Application
+```bash
+npm start
+```
+The app will be available at [http://localhost:3000](http://localhost:3000).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Data Persistence
+- Contacts are stored in **localStorage**, ensuring that the contact list persists even after refreshing the page.
 
-### `npm run eject`
+## Data Validation
+- **Name**: Required
+- **Email**: Must be unique and valid
+- **Phone**: Must have exactly 9 digits and be unique. 
+- Invalid inputs will prompt an error message to guide users in correcting their entries.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Responsiveness
+- The app is designed to be responsive, providing a clean and functional layout on mobile and desktop devices.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Component Structure
+- The app is organized into several reusable components:
+  - **App.jsx**: The main container managing the state and rendering components.
+  - **ContactForm.jsx**: Handles adding and editing contacts.
+  - **ContactList.jsx**: Displays a list of contacts.
+  - **ContactItem.jsx**: Represents each individual contact.
+  - **ContactModal.jsx**: Modal for adding/editing a contact.
+  - **ContactTable.jsx**: Table structure for displaying contacts.
+  - **useContacts.js**: Custom hook managing contact data, including validation and CRUD operations.
+  - **useLocalStorage.js**: Custom hook for persisting contacts in localStorage.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Additional Features
+- The application prevents the addition of contacts with duplicate emails or phone numbers, ensuring data integrity.
