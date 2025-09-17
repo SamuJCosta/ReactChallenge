@@ -7,25 +7,36 @@ export default function useContacts() {
   const [search, setSearch] = useState("");
 
   const validateContact = (contact) => {
+    // Verifica se o nome está vazio
     if (!contact.name.trim()) {
       return "Name is required.";
     }
 
+    // Validação do email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(contact.email)) {
       return "Please enter a valid email address.";
     }
 
+    // Verifica se o telefone tem 9 dígitos
     const phoneRegex = /^[0-9]{9}$/;
     if (!phoneRegex.test(contact.phone)) {
       return "Phone number must have exactly 9 digits.";
     }
 
-    if (contacts.some((c) => c.email === contact.email && c.email !== editingContact?.email)) {
+    // Verifica se já existe um contacto com o mesmo email
+    const isDuplicateEmail = contacts.some(
+      (c) => c.email === contact.email && c.email !== editingContact?.email
+    );
+    if (isDuplicateEmail) {
       return "A contact with this email already exists.";
     }
 
-    if (contacts.some((c) => c.phone === contact.phone && c.phone !== editingContact?.phone)) {
+    // Verifica se já existe um contacto com o mesmo telefone
+    const isDuplicatePhone = contacts.some(
+      (c) => c.phone === contact.phone && c.phone !== editingContact?.phone
+    );
+    if (isDuplicatePhone) {
       return "A contact with this phone number already exists.";
     }
 

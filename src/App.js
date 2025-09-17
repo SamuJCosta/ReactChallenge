@@ -27,7 +27,7 @@ export default function App() {
       <div className="bg-white rounded-xl shadow p-6 max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
-          <div>
+          <div className="flex-1">
             <h1 className="text-2xl font-bold text-gray-900">Contact Manager</h1>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
@@ -36,14 +36,14 @@ export default function App() {
               placeholder="Search contacts..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="flex-1 md:flex-none p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               onClick={() => {
                 setEditingContact(null);
                 setIsModalOpen(true);
               }}
-              className="px-4 py-2 bg-black hover:bg-black text-white rounded-lg"
+              className="px-4 py-2 bg-black hover:bg-black text-white rounded-lg mt-2 md:mt-0"
             >
               + Add Contact
             </button>

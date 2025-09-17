@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function ContactModal({ onClose, onSave, editingContact, contacts = [] }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", phone: "" });
 
   useEffect(() => {
     if (editingContact) {
@@ -13,41 +14,38 @@ export default function ContactModal({ onClose, onSave, editingContact, contacts
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validateForm = () => {
+    let valid = true;
+    let newErrors = { name: "", email: "", phone: "" };
+
+    // Validação do nome
+    if (!form.name.trim()) {
+      newErrors.name = "Name is required.";
+      valid = false;
+    }
+
+    // Validação do email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      newErrors.email = "Please enter a valid email address.";
+      valid = false;
+    }
+
+    // Validação do telefone
+    const phoneRegex = /^[0-9]{9}$/;
+    if (!phoneRegex.test(form.phone)) {
+      newErrors.phone = "Phone number must have exactly 9 digits.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!form.name.trim()) {
-      alert("Name is required.");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(form.email)) {
-      alert("Please enter a valid email address.");
-      return;
-    }
-
-    const phoneRegex = /^[0-9]{9}$/;
-    if (!phoneRegex.test(form.phone)) {
-      alert("Phone number must have exactly 9 digits.");
-      return;
-    }
-
-    const isDuplicateEmail = contacts.some(
-      (c) => c.email === form.email && c.email !== editingContact?.email
-    );
-    if (isDuplicateEmail) {
-      alert("A contact with this email already exists.");
-      return;
-    }
-
-    const isDuplicatePhone = contacts.some(
-      (c) => c.phone === form.phone && c.phone !== editingContact?.phone
-    );
-    if (isDuplicatePhone) {
-      alert("A contact with this phone number already exists.");
-      return;
-    }
+    if (!validateForm()) return; // Se a validação falhar, não submete o formulário.
 
     onSave(form);
   };
@@ -59,30 +57,41 @@ export default function ContactModal({ onClose, onSave, editingContact, contacts
           {editingContact ? "Edit Contact" : "Add Contact"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={form.name}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone (9 digits)"
-            value={form.phone}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={form.name}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.name ? "border-red-500" : ""}`}
+            />
+            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+          </div>
+
+          <div>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : ""}`}
+            />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          </div>
+
+          <div>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone (9 digits)"
+              value={form.phone}
+              onChange={handleChange}
+              className={`w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.phone ? "border-red-500" : ""}`}
+            />
+            {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+          </div>
 
           <div className="flex justify-end gap-2">
             <button
