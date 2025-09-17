@@ -45,7 +45,7 @@ export default function ContactModal({ onClose, onSave, editingContact, contacts
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validateForm()) return; // Se a validação falhar, não submete o formulário.
+    if (!validateForm()) return;
 
     onSave(form);
   };
